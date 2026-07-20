@@ -1,0 +1,75 @@
+name: Deploy Web to GitHub Pages
+
+# Baut die Flutter-Web-Version der App und veröffentlicht sie bei jedem Push
+# auf main unter https://efftobi.github.io/tafel-krefeld-app/.
+on:
+  push:
+    branches: [main]
+  # Erlaubt das manuelle Auslösen über den Actions-Tab.
+  workflow_dispatch:
+
+# Rechte, die actions/deploy-pages und die OIDC-Verifizierung benötigen.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Immer nur ein Pages-Deployment gleichzeitig; laufende werden nicht abgebrochen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Analyze, Test & Build Web
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Flutter einrichten
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.44.6
+          cache: true
+
+      - name: Abhängigkeiten installieren
+        run: flutter pub get
+
+      - name: Statische Analyse
+        run: flutter analyze
+
+      - name: Tests
+        run: flutter test
+
+      - name: Web bauen
+        run: flutter build web --release --base-href /tafel-krefeld-app/
+
+      - name: GitHub Pages konfigurieren
+        uses: actions/configure-pages@v5
+        with:
+          # Aktiviert GitHub Pages automatisch, falls in den Repo-Settings noch
+          # nicht geschehen. Schlägt fehl, wenn die Actions-Berechtigung fehlt —
+          # dann einmalig unter Settings → Pages → Source: GitHub Actions setzen.
+          enablement: true
+
+      - name: Build-Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/build/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Auf GitHub Pages deployen
+        id: deployment
+        uses: actions/deploy-pages@v4

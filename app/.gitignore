@@ -47,9 +47,11 @@ app.*.map.json
 
 # Plattform-Ordner: werden lokal mit `flutter create .` erzeugt und laut
 # Projekt-Konvention NICHT eingecheckt (siehe README).
+# Ausnahme: /web/ ist eingecheckt, weil es für das GitHub-Pages-Deployment
+# angepasst wird (Titel, Manifest, Icons, Theme-Farbe) und der CI-Build darauf
+# aufsetzt.
 /android/
 /ios/
 /linux/
 /macos/
 /windows/
-/web/

@@ -1,0 +1,36 @@
+{
+    "name": "Meine Tafel",
+    "short_name": "Meine Tafel",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FAF7F2",
+    "theme_color": "#EF7D00",
+    "description": "App für die Gäste der Tafel Krefeld e. V. — Ausgabestellen, Ausgabezeiten, Anmeldung und Hilfsangebote in Krefeld.",
+    "orientation": "portrait-primary",
+    "lang": "de",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
