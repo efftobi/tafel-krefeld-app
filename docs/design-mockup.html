@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tafel Krefeld — App Design-Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#ef7d00; --orange-dk:#c96900; --orange-lt:#fdeedc;
+    --green:#7ba428; --green-lt:#eef5dc;
+    --red:#d23c2e; --red-lt:#fbe7e5;
+    --blue:#4e828c; --blue-lt:#e3edef; --sand:#c6b59a; --petrol-dk:#1d4a52;
+    --ink:#232323; --grey:#5c5c5c; --line:#e3ddd4; --paper:#faf7f2; --white:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Atkinson Hyperlegible',sans-serif;background:var(--white);color:var(--ink)}
+  .n{font-family:'Nunito',sans-serif}
+
+  /* ===== page header ===== */
+  header.page{display:flex;align-items:center;gap:18px;padding:28px 40px;border-bottom:1px solid var(--line)}
+  .logo{display:flex;align-items:center;gap:14px}
+  .logo-mark{width:52px;height:52px;border-radius:14px;background:var(--orange);display:flex;align-items:center;justify-content:center}
+  .logo-mark svg{width:34px;height:34px}
+  .logo-text{line-height:1.05}
+  .logo-text b{display:block;font-family:'Nunito',sans-serif;font-size:23px;font-weight:900;letter-spacing:.5px}
+  .logo-text span{display:block;font-size:14px;font-weight:700;letter-spacing:3px;color:var(--orange)}
+  header.page .sub{margin-left:auto;text-align:right;color:var(--grey);font-size:13px}
+
+  .intro{padding:34px 40px 8px;max-width:940px}
+  .intro h1{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;margin-bottom:10px}
+  .intro p{color:var(--grey);font-size:14.5px;line-height:1.6}
+
+  /* ===== phone frames ===== */
+  .phones{display:flex;flex-wrap:wrap;gap:34px;padding:34px 40px 10px}
+  .phone-wrap{width:300px}
+  .phone-label{text-align:center;margin:14px 0 4px;font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase}
+  .phone-label small{display:block;font-weight:400;color:var(--grey);letter-spacing:0;text-transform:none;margin-top:3px;font-size:12px}
+  .phone{width:300px;height:630px;background:var(--paper);border:3px solid var(--ink);border-radius:34px;overflow:hidden;position:relative;box-shadow:0 18px 40px rgba(0,0,0,.13)}
+  .screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
+
+  /* app top bar */
+  .appbar{display:flex;align-items:center;gap:9px;padding:13px 14px 10px;background:var(--white);border-bottom:1px solid var(--line)}
+  .appbar .mark{width:30px;height:30px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;flex:0 0 30px}
+  .appbar .mark svg{width:20px;height:20px}
+  .appbar .t b{display:block;font-family:'Nunito',sans-serif;font-size:12.5px;font-weight:900;letter-spacing:.3px}
+  .appbar .t span{display:block;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--orange)}
+  .appbar .lang{margin-left:auto;font-size:9.5px;font-weight:700;border:1.5px solid var(--ink);border-radius:12px;padding:3px 8px;background:var(--white)}
+
+  /* bottom nav — groß & beschriftet */
+  .tabbar{margin-top:auto;display:flex;background:var(--white);border-top:2px solid var(--line);padding:8px 4px 10px}
+  .tabbar div{flex:1;text-align:center;font-size:9px;font-weight:700;color:#9a9186}
+  .tabbar div.on{color:var(--orange)}
+  .tabbar .ico{font-size:19px;display:block;margin-bottom:2px}
+
+  /* shared blocks */
+  .card{margin:10px 12px 0;background:var(--white);border:1.5px solid var(--line);border-radius:14px;padding:12px 13px}
+  .card h4{font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--grey);margin-bottom:6px}
+  .bigbtn{display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 12px 0;background:var(--orange);color:#fff;border-radius:14px;padding:13px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13.5px}
+  .bigbtn.sec{background:var(--white);color:var(--ink);border:2px solid var(--ink)}
+  .pill{display:inline-block;border-radius:20px;padding:3px 10px;font-size:9.5px;font-weight:700}
+  .p-green{background:var(--green-lt);color:#4d6b12}
+  .p-red{background:var(--red-lt);color:#a02a1f}
+  .p-orange{background:var(--orange-lt);color:var(--orange-dk)}
+
+  /* screen 1: sprache */
+  .welcome{padding:20px 16px 6px;text-align:center}
+  .welcome .plate{font-size:38px}
+  .welcome h3{font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;margin-top:6px}
+  .welcome p{font-size:11px;color:var(--grey);margin-top:3px}
+  .langgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 0}
+  .lg{background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:10px 6px;text-align:center;font-size:12.5px;font-weight:700}
+  .lg small{display:block;font-weight:400;font-size:9px;color:var(--grey);margin-top:2px}
+  .lg.on{border:2.5px solid var(--orange);background:var(--orange-lt)}
+  .plzrow{margin:12px 14px 0;display:flex;gap:8px}
+  .plz{flex:1;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;font-size:15px;letter-spacing:3px;font-weight:700;color:var(--ink)}
+  .plz small{display:block;font-size:8.5px;letter-spacing:.5px;font-weight:700;color:var(--grey)}
+  .go{flex:0 0 78px;background:var(--orange);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px}
+
+  /* screen 2: meine ausgabestelle */
+  .hero-st{margin:10px 12px 0;background:var(--orange);border-radius:16px;color:#fff;padding:14px;position:relative;overflow:hidden}
+  .hero-st:after{content:"🧺";position:absolute;right:-6px;bottom:-10px;font-size:64px;opacity:.18}
+  .hero-st .k{font-size:9.5px;font-weight:700;letter-spacing:1.6px;opacity:.9}
+  .hero-st h3{font-family:'Nunito',sans-serif;font-size:19px;font-weight:900;margin:2px 0 3px}
+  .hero-st p{font-size:11px;line-height:1.5}
+  .next{margin:10px 12px 0;background:var(--green-lt);border:1.5px solid #cfe0a5;border-radius:14px;padding:11px 13px;display:flex;gap:10px;align-items:center}
+  .next .d{background:var(--white);border-radius:10px;border:1.5px solid #cfe0a5;text-align:center;padding:5px 9px;flex:0 0 auto}
+  .next .d b{display:block;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:var(--green)}
+  .next .d span{font-size:8.5px;font-weight:700;color:var(--grey)}
+  .next .i{font-size:11px;line-height:1.45}
+  .next .i b{font-size:12px}
+  .two{display:flex;gap:8px;margin:10px 12px 0}
+  .two .bigbtn{flex:1;margin:0;padding:10px;font-size:11.5px}
+  .push{margin:10px 12px 0;background:var(--white);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;border-top:1.5px solid var(--line);border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line);padding:9px 11px;font-size:10.5px;line-height:1.5}
+
+  /* screen 3: wochen-info */
+  .numbox{margin:10px 12px 0;background:var(--ink);color:#fff;border-radius:16px;padding:14px;text-align:center}
+  .numbox .k{font-size:9.5px;letter-spacing:1.6px;font-weight:700;color:#f6b26b}
+  .numbox .nr{font-family:'Nunito',sans-serif;font-size:40px;font-weight:900;line-height:1.1}
+  .numbox p{font-size:10px;color:#cfcfcf;line-height:1.5}
+  .alert{margin:10px 12px 0;background:var(--red-lt);border:1.5px solid #efb8b2;border-radius:14px;padding:11px 13px;font-size:11px;line-height:1.5}
+  .alert b{color:#a02a1f}
+  .good{margin:10px 12px 0;background:var(--green-lt);border:1.5px solid #cfe0a5;border-radius:14px;padding:11px 13px;font-size:11px;line-height:1.5}
+  .good b{color:#4d6b12}
+  .toggle{display:flex;justify-content:space-between;align-items:center;margin:10px 12px 0;background:var(--white);border:1.5px solid var(--line);border-radius:14px;padding:11px 13px;font-size:11px;font-weight:700}
+  .sw{width:34px;height:19px;border-radius:12px;background:var(--green);position:relative;flex:0 0 34px}
+  .sw:after{content:"";position:absolute;right:2.5px;top:2.5px;width:14px;height:14px;border-radius:50%;background:#fff}
+
+  /* screen 4: anmeldung */
+  .steps{margin:10px 12px 0;display:flex;gap:6px}
+  .step{flex:1;text-align:center;background:var(--white);border:1.5px solid var(--line);border-radius:12px;padding:8px 4px;font-size:8.5px;font-weight:700;line-height:1.4}
+  .step .num{width:22px;height:22px;margin:0 auto 4px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px}
+  .chk{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:11.5px;border-bottom:1px dashed var(--line)}
+  .chk:last-child{border-bottom:none}
+  .chk .ic{width:26px;height:26px;flex:0 0 26px;border-radius:8px;background:var(--orange-lt);display:flex;align-items:center;justify-content:center;font-size:14px}
+  .bubble{margin:10px 12px 0;background:var(--blue-lt);border:1.5px solid #bcd4e6;border-radius:14px;padding:11px 13px}
+  .bubble .de{font-size:11px;font-weight:700;line-height:1.45}
+  .bubble .ar{font-size:12.5px;direction:rtl;text-align:right;margin-top:5px;color:var(--blue);line-height:1.6}
+  .bubble .tag{font-size:8.5px;letter-spacing:1px;font-weight:700;color:var(--blue);margin-bottom:4px}
+
+  /* screen 5: gästekarte */
+  .gcard{margin:10px 12px 0;background:linear-gradient(135deg,var(--orange),#f6a94e);border-radius:16px;padding:13px;color:#fff}
+  .gcard .top{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;letter-spacing:1.2px}
+  .gcard .body{display:flex;gap:12px;align-items:center;margin-top:9px}
+  .qr{width:74px;height:74px;flex:0 0 74px;border-radius:10px;background:
+      repeating-linear-gradient(0deg,#232323 0 4px,transparent 4px 8px),
+      repeating-linear-gradient(90deg,#232323 0 4px,#fff 4px 8px)}
+  .gcard .gi{font-size:10.5px;line-height:1.55}
+  .gcard .gi b{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;display:block}
+  .warn{margin:10px 12px 0;background:#fff7e0;border:1.5px solid #ecd591;border-radius:14px;padding:11px 13px;font-size:11px;line-height:1.5}
+  .warn b{color:#93700d}
+
+  /* screen 6: hilfe */
+  .helpgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 12px 0}
+  .hp{background:var(--white);border:1.5px solid var(--line);border-radius:14px;padding:11px 10px;text-align:center}
+  .hp .ic{font-size:22px}
+  .hp b{display:block;font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;margin-top:4px}
+  .hp span{display:block;font-size:8.5px;color:var(--grey);margin-top:2px;line-height:1.35}
+
+  /* tokens footer */
+  .tokens{padding:30px 40px 50px}
+  .tokens h2{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;letter-spacing:.5px;margin-bottom:14px}
+  .tokrow{display:flex;flex-wrap:wrap;gap:12px}
+  .tok{border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12px;min-width:160px}
+  .tok .swb{width:100%;height:26px;margin-bottom:7px;border-radius:6px}
+  .tok small{color:var(--grey)}
+  footer{padding:0 40px 40px;color:var(--grey);font-size:12px;line-height:1.6;max-width:940px}
+</style>
+</head>
+<body>
+
+<header class="page">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 34 34" fill="none">
+        <path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+        <path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/>
+        <path d="M11 13 c0-2 1.5-2 1.5-4 M17 12 c0-2 1.5-2 1.5-4 M23 13 c0-2 1.5-2 1.5-4" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="logo-text"><b>Tafel Krefeld</b><span>MEINE TAFEL</span></div>
+  </div>
+  <div class="sub">App Design-Mockup · Vorschlag Juli 2026<br>Für Gäste der Tafel Krefeld e.&thinsp;V.</div>
+</header>
+
+<div class="intro">
+  <h1>„Meine Tafel" — sechs Beispielscreens</h1>
+  <p>Designprinzipien: große Schrift (Atkinson Hyperlegible — eine speziell für Lesbarkeit entwickelte Schrift), Piktogramme statt Textwüsten, warme Tafel-Farben (Orange/Grün), beschriftete Tab-Leiste, alles mehrsprachig. Screen&nbsp;1 zeigt den ersten Start (Sprache + PLZ), Screens&nbsp;2–4 das MVP, Screen&nbsp;5 die digitale Gästekarte (Ausbaustufe&nbsp;2), Screen&nbsp;6 den Hilfe-Bereich. Alle Daten beispielhaft.</p>
+</div>
+
+<div class="phones">
+
+  <!-- ============ SCREEN 1: SPRACHE + PLZ ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="welcome">
+        <div class="plate">🧺</div>
+        <h3 class="n">Willkommen! · Welcome!<br>أهلاً بكم · Ласкаво просимо</h3>
+        <p>Wähle deine Sprache / Choose your language</p>
+      </div>
+      <div class="langgrid">
+        <div class="lg on">Deutsch</div>
+        <div class="lg">English</div>
+        <div class="lg">العربية<small>Arabisch</small></div>
+        <div class="lg">فارسی<small>Farsi</small></div>
+        <div class="lg">Українська<small>Ukrainisch</small></div>
+        <div class="lg">Русский<small>Russisch</small></div>
+        <div class="lg">Türkçe<small>Türkisch</small></div>
+        <div class="lg">Polski<small>Polnisch</small></div>
+      </div>
+      <div class="plzrow">
+        <div class="plz"><small>DEINE POSTLEITZAHL</small>4 7 8 0 5</div>
+        <div class="go">Los →</div>
+      </div>
+      <div class="tabbar" style="border-top:none"></div>
+    </div></div>
+    <div class="phone-label">1 · Erster Start<small>Sprache wählen, PLZ eingeben — fertig</small></div>
+  </div>
+
+  <!-- ============ SCREEN 2: MEINE AUSGABESTELLE ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="appbar">
+        <div class="mark"><svg viewBox="0 0 34 34" fill="none"><path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/></svg></div>
+        <div class="t"><b>Meine Tafel</b><span>KREFELD</span></div>
+        <div class="lang">🌐 DE</div>
+      </div>
+      <div class="hero-st">
+        <div class="k">DEINE AUSGABESTELLE · PLZ 47805</div>
+        <h3 class="n">Ausgabestelle Süd</h3>
+        <p>Freizeitzentrum Süd<br>Kölner Straße 190, 47805 Krefeld</p>
+      </div>
+      <div class="next">
+        <div class="d"><b class="n">DI</b><span>21.07.</span></div>
+        <div class="i"><b>Nächste Ausgabe: ab 10:30 Uhr</b><br><span class="pill p-green">✓ findet statt</span> &nbsp;1&nbsp;€ pro Erwachsenem</div>
+      </div>
+      <div class="two">
+        <div class="bigbtn">🗺 Route</div>
+        <div class="bigbtn sec">🗓 Merken</div>
+      </div>
+      <div class="push"><b>🔔 Heute 9:03</b> — Diese Woche zusätzlich Obst und Molkereiprodukte in großer Menge!</div>
+      <div class="card"><h4>GESCHÄFTSSTELLE</h4><div style="font-size:11px;line-height:1.5">Westwall 37 · Mi+Do 10–12 Uhr<br>📞 02151 – 53 88 98</div></div>
+      <div class="tabbar">
+        <div class="on"><span class="ico">⌂</span>Start</div>
+        <div><span class="ico">🎫</span>Karte</div>
+        <div><span class="ico">✍</span>Anmeldung</div>
+        <div><span class="ico">🤝</span>Hilfe</div>
+        <div><span class="ico">☰</span>Mehr</div>
+      </div>
+    </div></div>
+    <div class="phone-label">2 · Start<small>Meine Ausgabestelle, nächster Termin, Push</small></div>
+  </div>
+
+  <!-- ============ SCREEN 3: DIESE WOCHE ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="appbar">
+        <div class="mark"><svg viewBox="0 0 34 34" fill="none"><path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/></svg></div>
+        <div class="t"><b>Diese Woche</b><span>ST. JOSEF · SÜDSTR. 84</span></div>
+        <div class="lang">🌐 DE</div>
+      </div>
+      <div class="numbox">
+        <div class="k">AUSGABE SAMSTAG AB 12:00 — START BEI NUMMER</div>
+        <div class="nr n">400</div>
+        <p>Nächste Woche: Start bei Nummer 500.<br>Deine Nummer siehst du auf deiner Gästekarte.</p>
+      </div>
+      <div class="alert"><b>⚠ Ausfall:</b> Die Ausgabe Gartenstadt (Di 21.07.) entfällt diese Woche — Ersatztermin Do 23.07. ab 12:00 Uhr.</div>
+      <div class="good"><b>✓ Sonderausgabe:</b> Schulranzen-Aktion der Kindertafel am Fr 24.07., Westwall 37.</div>
+      <div class="toggle">🔔 Benachrichtigungen für diese Ausgabestelle<div class="sw"></div></div>
+      <div class="tabbar">
+        <div class="on"><span class="ico">⌂</span>Start</div>
+        <div><span class="ico">🎫</span>Karte</div>
+        <div><span class="ico">✍</span>Anmeldung</div>
+        <div><span class="ico">🤝</span>Hilfe</div>
+        <div><span class="ico">☰</span>Mehr</div>
+      </div>
+    </div></div>
+    <div class="phone-label">3 · Diese Woche<small>Startnummer, Ausfälle, Sonderausgaben</small></div>
+  </div>
+
+  <!-- ============ SCREEN 4: ANMELDUNG ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="appbar">
+        <div class="mark"><svg viewBox="0 0 34 34" fill="none"><path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/></svg></div>
+        <div class="t"><b>Anmeldung</b><span>SO GEHT ES</span></div>
+        <div class="lang">🌐 DE+ع</div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num n">1</div>Formular in der App ausfüllen</div>
+        <div class="step"><div class="num n">2</div>Dokumente einpacken</div>
+        <div class="step"><div class="num n">3</div>Mi/Do 10–12 zum Westwall 37</div>
+      </div>
+      <div class="card">
+        <h4>DAS MUSST DU MITBRINGEN</h4>
+        <div class="chk"><div class="ic">📄</div>Leistungsbescheid (Jobcenter, Rente oder Sozialamt)</div>
+        <div class="chk"><div class="ic">🪪</div>Personalausweis oder Reisepass</div>
+        <div class="chk"><div class="ic">👨‍👩‍👧</div>Nachweis für alle Personen im Haushalt</div>
+      </div>
+      <div class="bubble">
+        <div class="tag">ZWEISPRACHIG ANZEIGEN — HILFT AUCH IM GESPRÄCH VOR ORT</div>
+        <div class="de">Anmeldung: Mittwoch und Donnerstag, 10–12 Uhr, Westwall 37.</div>
+        <div class="ar">التسجيل: الأربعاء والخميس، من الساعة ١٠ إلى ١٢، في فيستفال ٣٧</div>
+      </div>
+      <div class="bigbtn">✍ Vor-Anmeldung ausfüllen (5 Min.)</div>
+      <div class="tabbar">
+        <div><span class="ico">⌂</span>Start</div>
+        <div><span class="ico">🎫</span>Karte</div>
+        <div class="on"><span class="ico">✍</span>Anmeldung</div>
+        <div><span class="ico">🤝</span>Hilfe</div>
+        <div><span class="ico">☰</span>Mehr</div>
+      </div>
+    </div></div>
+    <div class="phone-label">4 · Anmeldung<small>Checkliste, Zweisprachen-Ansicht, Vor-Anmeldung</small></div>
+  </div>
+
+  <!-- ============ SCREEN 5: GÄSTEKARTE (STUFE 2) ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="appbar">
+        <div class="mark"><svg viewBox="0 0 34 34" fill="none"><path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/></svg></div>
+        <div class="t"><b>Gästekarte</b><span>DIGITAL</span></div>
+        <div class="lang">🌐 DE</div>
+      </div>
+      <div class="gcard">
+        <div class="top"><span>TAFEL KREFELD E.V.</span><span>GÜLTIG ✓</span></div>
+        <div class="body">
+          <div class="qr"></div>
+          <div class="gi"><b class="n">Karte Nr. 412</b>Haushalt: 4 Personen<br>Ausgabestelle: Süd<br>gültig bis 31.08.2026</div>
+        </div>
+      </div>
+      <div class="warn"><b>⏳ Erinnerung:</b> Dein Leistungsbescheid läuft am 31.08. ab. Bring den neuen Bescheid zur Verlängerung mit — sonst wird die Karte ungültig.</div>
+      <div class="two">
+        <div class="bigbtn sec">🙋 Abwesenheit melden</div>
+      </div>
+      <div class="card"><h4>LETZTE ABHOLUNGEN</h4>
+        <div style="font-size:11px;line-height:1.7">✓ Di 14.07. · Süd<br>✓ Di 07.07. · Süd<br>— Di 30.06. · entschuldigt gefehlt</div>
+      </div>
+      <div class="tabbar">
+        <div><span class="ico">⌂</span>Start</div>
+        <div class="on"><span class="ico">🎫</span>Karte</div>
+        <div><span class="ico">✍</span>Anmeldung</div>
+        <div><span class="ico">🤝</span>Hilfe</div>
+        <div><span class="ico">☰</span>Mehr</div>
+      </div>
+    </div></div>
+    <div class="phone-label">5 · Gästekarte<small>Ausbaustufe 2 — QR, Erinnerung, Abwesenheit</small></div>
+  </div>
+
+  <!-- ============ SCREEN 6: HILFE IN KREFELD ============ -->
+  <div class="phone-wrap">
+    <div class="phone"><div class="screen">
+      <div class="appbar">
+        <div class="mark"><svg viewBox="0 0 34 34" fill="none"><path d="M4 21 h26" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M7 21 a10 10 0 0 1 20 0" fill="#fff" opacity=".9"/></svg></div>
+        <div class="t"><b>Hilfe in Krefeld</b><span>MEHR ALS LEBENSMITTEL</span></div>
+        <div class="lang">🌐 DE</div>
+      </div>
+      <div class="helpgrid">
+        <div class="hp"><div class="ic">🎒</div><b class="n">Kindertafel</b><span>Frühstück, Schulsachen, Aktionen für Kinder</span></div>
+        <div class="hp"><div class="ic">🍲</div><b class="n">Mittagstisch</b><span>Warmes Essen — Zeiten &amp; Orte</span></div>
+        <div class="hp"><div class="ic">👕</div><b class="n">Kleiderkammer</b><span>Kleidung günstig oder gratis</span></div>
+        <div class="hp"><div class="ic">🏛</div><b class="n">Beratung</b><span>Jobcenter, Sozialamt, Schuldnerberatung</span></div>
+        <div class="hp"><div class="ic">⚽</div><b class="n">Sport &amp; Kultur</b><span>Zuschüsse für Vereine, Musik, Ausflüge</span></div>
+        <div class="hp"><div class="ic">💬</div><b class="n">Sprachhilfe</b><span>Deutschkurse &amp; Dolmetscher-Angebote</span></div>
+      </div>
+      <div class="card"><h4>REGELN DER AUSGABE</h4>
+        <div style="font-size:11px;line-height:1.6">In deiner Sprache lesen oder <b>vorlesen lassen 🔊</b> — für alle, die nicht gut lesen können.</div>
+      </div>
+      <div class="bigbtn sec">📞 Tafel anrufen</div>
+      <div class="tabbar">
+        <div><span class="ico">⌂</span>Start</div>
+        <div><span class="ico">🎫</span>Karte</div>
+        <div><span class="ico">✍</span>Anmeldung</div>
+        <div class="on"><span class="ico">🤝</span>Hilfe</div>
+        <div><span class="ico">☰</span>Mehr</div>
+      </div>
+    </div></div>
+    <div class="phone-label">6 · Hilfe<small>Kindertafel, Mittagstisch, Anlaufstellen</small></div>
+  </div>
+
+</div>
+
+<div class="tokens">
+  <h2>DESIGN-BAUSTEINE</h2>
+  <div class="tokrow">
+    <div class="tok"><div class="swb" style="background:#ef7d00"></div><b>Tafel-Orange #EF7D00</b><br><small>Primärfarbe — aus dem Original-Logo</small></div>
+    <div class="tok"><div class="swb" style="background:#c6b59a"></div><b>Sand #C6B59A</b><br><small>„KREFELD", Weber-Figur</small></div>
+    <div class="tok"><div class="swb" style="background:#4e828c"></div><b>Petrol #4E828C</b><br><small>Besteck-/Euro-Icon, Akzente</small></div>
+    <div class="tok"><div class="swb" style="background:#1d4a52"></div><b>Dunkelpetrol #1D4A52</b><br><small>Skyline, dunkle Flächen</small></div>
+    <div class="tok"><div class="swb" style="background:#7ba428"></div><b>Grün #7BA428</b><br><small>„findet statt", Bestätigungen</small></div>
+    <div class="tok"><div class="swb" style="background:#d23c2e"></div><b>Rot #D23C2E</b><br><small>nur für Ausfälle/Warnungen</small></div>
+    <div class="tok"><div class="swb" style="background:#faf7f2;border:1px solid #e3ddd4"></div><b>Warmes Weiß #FAF7F2</b><br><small>Hintergrund — freundlich, nicht klinisch</small></div>
+    <div class="tok"><div class="swb" style="display:flex;align-items:center;justify-content:center;font-family:'Atkinson Hyperlegible';font-weight:700;border:1px solid #e3ddd4">Atkinson Hyperlegible</div><b>Atkinson Hyperlegible</b><br><small>Fließtext — entwickelt für maximale Lesbarkeit</small></div>
+    <div class="tok"><div class="swb" style="display:flex;align-items:center;justify-content:center;font-family:Nunito;font-weight:900;border:1px solid #e3ddd4">Nunito</div><b>Nunito</b><br><small>Überschriften — rund und freundlich</small></div>
+  </div>
+</div>
+
+<footer>Mockup — Freigabe der Tafel Krefeld für Logo und CI liegt vor (Juli 2026). Farben aus den Original-Logodateien; Wortmarke mit Weber-Figur, Kindertafel-Drachen und Krefeld-Skyline werden als Grafiken eingebaut. Alle Namen, Nummern, Termine und die Startnummern-Logik sind beispielhaft und werden im Gespräch mit Geschäftsstelle und Ausgabestellen festgelegt. Barrierefreiheit: große Touch-Flächen, hohe Kontraste, Vorlesen-Funktion, komplette App in 10 Sprachen inkl. RTL (Arabisch, Farsi).</footer>
+
+</body>
+</html>
