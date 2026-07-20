@@ -71,13 +71,19 @@ const geschaeftsstelle = (
 );
 
 const ausgabestellen = <Ausgabestelle>[
+  // PLZ-Zuordnung verifiziert am 20.07.2026 auf tafel-krefeld.de/was-wir-tun.
+  // Die Bereiche überschneiden sich (eine PLZ kann zu mehreren Stellen gehören)
+  // — deshalb liefert ausgabestellenFuerPlz() eine Liste. Die Website nennt für
+  // Westwall zusätzlich „und weitere" PLZ; die Liste ist also nicht
+  // abschließend. Unbekannte PLZ → Hinweis „Geschäftsstelle anrufen".
   Ausgabestelle(
     id: 'westwall',
     name: 'Westwall',
     ort: 'Tafel Krefeld, Geschäftsstelle',
     strasse: 'Westwall 37',
     plzOrt: '47798 Krefeld',
-    plzBereiche: ['47799'],
+    // Laut Website: 47799, 47800, 47802, 47803, 47829 „und weitere".
+    plzBereiche: ['47799', '47800', '47802', '47803', '47829'],
     zeiten: [Ausgabezeit(3, '12:00'), Ausgabezeit(4, '12:00')],
   ),
   Ausgabestelle(
@@ -88,7 +94,9 @@ const ausgabestellen = <Ausgabestelle>[
     plzOrt: '47798 Krefeld',
     plzBereiche: ['47798'],
     zeiten: [Ausgabezeit(6, '12:00')],
-    hinweis: 'Kooperations-Ausgabestelle · eigene Gästekarten · Tel. 02151 602179',
+    hinweis: 'Kooperations-Ausgabestelle · eigene Gästekarten · '
+        'Anmeldung samstags 12:45 Uhr vor Ort (nicht über die Geschäftsstelle) · '
+        'Tel. 02151 602179',
   ),
   Ausgabestelle(
     id: 'gartenstadt',
@@ -96,6 +104,9 @@ const ausgabestellen = <Ausgabestelle>[
     ort: 'Pius-Lukas-Kirche',
     strasse: 'Traarer Straße 380',
     plzOrt: '47829 Krefeld',
+    // Nicht Teil der Verifikation vom 20.07.2026 (Website führte Gartenstadt
+    // dort nicht mit PLZ auf). Bisherige Recherche belassen; 47800/47829
+    // überschneiden sich dadurch mit Westwall. Bei nächster Prüfung bestätigen.
     plzBereiche: ['47800', '47829'],
     zeiten: [Ausgabezeit(2, '12:00')],
   ),
@@ -105,7 +116,7 @@ const ausgabestellen = <Ausgabestelle>[
     ort: 'Freizeitzentrum Süd',
     strasse: 'Kölner Straße 190',
     plzOrt: '47805 Krefeld',
-    plzBereiche: ['47805'],
+    plzBereiche: ['47805', '47807'],
     zeiten: [Ausgabezeit(2, '10:30')],
   ),
   Ausgabestelle(
@@ -114,7 +125,9 @@ const ausgabestellen = <Ausgabestelle>[
     ort: 'Pfarrsaal St. Bonifatius',
     strasse: 'Bonifatiusstraße 17',
     plzOrt: '47807 Krefeld',
-    plzBereiche: ['47804', '47806', '47807'],
+    // 47806 stand am 20.07.2026 nicht auf der Website → entfernt. 47805/47807
+    // überschneiden sich mit Süd.
+    plzBereiche: ['47804', '47805', '47807'],
     zeiten: [Ausgabezeit(5, '13:00')],
   ),
   Ausgabestelle(
@@ -123,15 +136,16 @@ const ausgabestellen = <Ausgabestelle>[
     ort: 'Jugendfreizeitzentrum',
     strasse: 'Herbertzstraße 205',
     plzOrt: '47809 Krefeld',
+    // Nicht Teil der Verifikation vom 20.07.2026; bisherige Recherche belassen.
     plzBereiche: ['47809'],
     zeiten: [Ausgabezeit(4, '11:00')],
   ),
 ];
 
-/// Zuständige Ausgabestelle für eine PLZ, oder null wenn unbekannt.
-Ausgabestelle? ausgabestelleFuerPlz(String plz) {
-  for (final a in ausgabestellen) {
-    if (a.plzBereiche.contains(plz)) return a;
-  }
-  return null;
-}
+/// Alle für eine PLZ zuständigen Ausgabestellen (in Anzeige-Reihenfolge).
+///
+/// Bereiche überschneiden sich, daher können es mehrere sein. Ist die Liste
+/// leer, ist die PLZ unbekannt → in der UI auf „Geschäftsstelle anrufen"
+/// ($geschaeftsstelle.telefonAnzeige) hinweisen.
+List<Ausgabestelle> ausgabestellenFuerPlz(String plz) =>
+    [for (final a in ausgabestellen) if (a.plzBereiche.contains(plz)) a];

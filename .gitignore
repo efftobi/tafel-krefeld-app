@@ -1,0 +1,19 @@
+# Monorepo-Root — allgemeine Ausschlüsse.
+# App- und Flutter-spezifisches steht in app/.gitignore.
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+*.iml
+
+# Umgebungs-/Geheimwerte (Supabase-Keys o. Ä. gehören NICHT ins Repo)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
