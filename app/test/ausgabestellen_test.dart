@@ -2,11 +2,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tafel_krefeld/data/ausgabestellen.dart';
 
 void main() {
+  List<String> idsFuer(String plz) =>
+      ausgabestellenFuerPlz(plz).map((a) => a.id).toList();
+
   test('PLZ-Zuordnung findet die richtige Ausgabestelle', () {
-    expect(ausgabestelleFuerPlz('47805')!.id, 'sued');
-    expect(ausgabestelleFuerPlz('47809')!.id, 'oppum');
-    expect(ausgabestelleFuerPlz('47798')!.id, 'taegliches-brot');
-    expect(ausgabestelleFuerPlz('40210'), isNull); // Düsseldorf → keine Zuordnung
+    expect(idsFuer('47809'), ['oppum']);
+    expect(idsFuer('47798'), ['taegliches-brot']);
+    expect(idsFuer('47804'), ['stahldorf']);
+    expect(idsFuer('40210'), isEmpty); // Düsseldorf → keine Zuordnung
+  });
+
+  test('Überlappende PLZ liefern mehrere Ausgabestellen', () {
+    // 47805 + 47807: Süd und Stahldorf (Stand 20.07.2026).
+    expect(idsFuer('47805'), containsAll(['sued', 'stahldorf']));
+    expect(idsFuer('47807'), containsAll(['sued', 'stahldorf']));
+    // 47800 + 47829: Westwall und Gartenstadt.
+    expect(idsFuer('47800'), containsAll(['westwall', 'gartenstadt']));
+    expect(idsFuer('47829'), containsAll(['westwall', 'gartenstadt']));
+  });
+
+  test('Westwall deckt den erweiterten PLZ-Bereich ab', () {
+    for (final plz in ['47799', '47800', '47802', '47803', '47829']) {
+      expect(idsFuer(plz), contains('westwall'), reason: 'PLZ $plz → Westwall');
+    }
+  });
+
+  test('47806 ist nicht mehr zugeordnet (nicht auf der Website)', () {
+    expect(idsFuer('47806'), isEmpty);
   });
 
   test('naechsteAusgabe liefert den nächsten passenden Wochentag', () {

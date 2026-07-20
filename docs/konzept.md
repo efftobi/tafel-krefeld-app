@@ -10,14 +10,21 @@
 
 Die Tafel Krefeld e. V. (Westwall 37, 47798 Krefeld, Tel. 02151–538898) betreibt bzw. koordiniert **sechs Ausgabestellen**, die den Gästen nach Postleitzahl zugeordnet sind:
 
+PLZ-Zuordnung verifiziert am 20.07.2026 auf tafel-krefeld.de/was-wir-tun. Die
+Bereiche überschneiden sich (eine PLZ kann zu mehreren Stellen gehören):
+
 | PLZ-Bereich | Ausgabestelle | Adresse | Ausgabezeit |
 |---|---|---|---|
-| 47798 | „das tägliche brot" (Kooperation) | St. Josef Kirche, Südstraße 84 | Sa ab 12:00 |
-| 47799 u. a. | Westwall | Westwall 37 | Mi + Do ab 12:00 |
+| 47798 | „das tägliche brot" (Kooperation) | St. Josef Kirche, Südstraße 84 | Sa ab 12:00 (Anmeldung Sa 12:45 vor Ort) |
+| 47799, 47800, 47802, 47803, 47829 u. a. | Westwall | Westwall 37 | Mi + Do ab 12:00 |
 | 47800, 47829 | Gartenstadt | Pius-Lukas-Kirche, Traarer Str. 380 | Di ab 12:00 |
-| 47805–47807 | Süd | Freizeitzentrum, Kölner Str. 190 | Di ab 10:30 |
-| 47804–47807 | Stahldorf | Pfarrsaal, Bonifatiusstr. 17 | Fr ab 13:00 |
+| 47805, 47807 | Süd | Freizeitzentrum, Kölner Str. 190 | Di ab 10:30 |
+| 47804, 47805, 47807 | Stahldorf | Pfarrsaal, Bonifatiusstr. 17 | Fr ab 13:00 |
 | 47809 | Oppum | Jugendfreizeitzentrum, Herbertzstr. 205 | Do ab 11:00 |
+
+Unbekannte PLZ werden in der App auf „Geschäftsstelle anrufen" (02151–538898)
+geleitet. Gartenstadt und Oppum waren am 20.07.2026 nicht mit PLZ gelistet;
+ihre Zuordnung stammt aus früherer Recherche und ist noch zu bestätigen.
 
 Anmeldung neuer Gäste: Mi–Do 10:00–12:00 Uhr am Westwall 37, mit Leistungsbescheid (Jobcenter, Rente, Sozialleistung) und Ausweis. Dazu kommen die **Kindertafel Krefeld**, ein warmer Mittagstisch und weitere Angebote (Zuschüsse für Bildung, Kultur, Sport).
 
@@ -134,6 +141,6 @@ Das größte Risiko ist nicht die Technik, sondern die **Pflege-Disziplin**: Die
 ## 10. Nächste Schritte
 
 1. Gespräch mit der Tafel Krefeld (Geschäftsstelle, Westwall 37): Konzept vorstellen, Bedarf und Prioritäten aus deren Sicht abfragen — vielleicht brennt ihnen etwas ganz anderes unter den Nägeln (z. B. Ehrenamts-Koordination).
-2. Ausgabezeiten und PLZ-Zuordnungen verifizieren (Website-Stand prüfen, einige Unterseiten waren nicht erreichbar).
+2. Ausgabezeiten und PLZ-Zuordnungen mit der Geschäftsstelle final bestätigen (Website-Stand vom 20.07.2026 eingearbeitet; noch offen: PLZ von Gartenstadt und Oppum, die die Website nicht ausweist).
 3. Sprachbedarf klären: Welche Sprachen sprechen die Gäste in Krefeld tatsächlich am häufigsten?
 4. Danach kann ich direkt loslegen: Supabase-Schema, Admin-Backend und ein klickbarer Design-Entwurf der App (wie bei Gargellen/SVK72) als Diskussionsgrundlage fürs Gespräch mit der Tafel.

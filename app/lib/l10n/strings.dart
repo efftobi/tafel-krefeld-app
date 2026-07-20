@@ -39,9 +39,13 @@ const _de = <String, String>{
   'tab.hilfe': 'Hilfe',
   'tab.mehr': 'Mehr',
   'start.yourStation': 'DEINE AUSGABESTELLE',
+  'start.multipleStations':
+      'Für deine Postleitzahl sind mehrere Ausgabestellen zuständig. '
+      'Du kannst dir eine aussuchen:',
+  'start.callOffice': 'Geschäftsstelle anrufen',
   'start.unknownPlz':
       'Für deine Postleitzahl haben wir keine eigene Zuordnung gefunden. '
-      'Bitte melde dich bei der Geschäftsstelle — sie sagt dir, welche Ausgabestelle deine ist.',
+      'Bitte ruf die Geschäftsstelle an — sie sagt dir, welche Ausgabestelle deine ist.',
   'start.nextIssue': 'Nächste Ausgabe',
   'start.route': 'Route',
   'start.call': 'Anrufen',
@@ -109,9 +113,13 @@ const _en = <String, String>{
   'tab.hilfe': 'Help',
   'tab.mehr': 'More',
   'start.yourStation': 'YOUR DISTRIBUTION POINT',
+  'start.multipleStations':
+      'Several distribution points serve your postal code. '
+      'You can choose one:',
+  'start.callOffice': 'Call the office',
   'start.unknownPlz':
       'We could not match your postal code to a distribution point. '
-      'Please contact the office — they will tell you which one is yours.',
+      'Please call the office — they will tell you which one is yours.',
   'start.nextIssue': 'Next distribution',
   'start.route': 'Route',
   'start.call': 'Call',
