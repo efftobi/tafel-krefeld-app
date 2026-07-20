@@ -3,6 +3,11 @@
 Mobile App für die **Gäste der Tafel Krefeld e. V.** — mehrsprachig, ohne Hürden, mit allen
 Infos rund um Ausgabestellen, Ausgabezeiten, Anmeldung und weitere Hilfsangebote in Krefeld.
 
+> 🌐 **Im Browser öffnen:** <https://efftobi.github.io/tafel-krefeld-app/>
+> Die Web-Version läuft direkt im Browser (auch auf dem iPhone in Safari) und lässt sich
+> über „Teilen → Zum Home-Bildschirm" wie eine echte App installieren. Sie wird bei jedem
+> Push auf `main` automatisch über GitHub Actions neu gebaut und veröffentlicht.
+
 > Status: **v0.1 — erste lauffähige Version** (MVP-Screens mit lokalen Beispieldaten,
 > noch ohne Backend-Anbindung). Konzept siehe [`docs/konzept.md`](docs/konzept.md),
 > Design-Mockup siehe [`docs/design-mockup.html`](docs/design-mockup.html).
@@ -27,8 +32,31 @@ flutter pub get
 flutter run
 ```
 
-Die Plattform-Ordner (`android/`, `ios/`) sind bewusst nicht eingecheckt — sie werden
-mit `flutter create .` generiert. Eingecheckt ist nur der eigentliche App-Code (`lib/`, `pubspec.yaml`).
+Die mobilen Plattform-Ordner (`android/`, `ios/`) sind bewusst nicht eingecheckt — sie werden
+mit `flutter create .` generiert. Eingecheckt sind der eigentliche App-Code (`lib/`, `pubspec.yaml`)
+sowie der angepasste `web/`-Ordner (Titel, Manifest, Icons, Theme-Farbe für die Web-/PWA-Version).
+
+## Web-Version & Deployment (GitHub Pages)
+
+Die App läuft auch als Web-App und wird automatisch nach GitHub Pages deployt:
+<https://efftobi.github.io/tafel-krefeld-app/>.
+
+Lokal bauen bzw. ausführen:
+
+```bash
+cd app
+flutter run -d chrome                                   # lokal im Browser testen
+flutter build web --release --base-href /tafel-krefeld-app/   # Produktions-Build (wie in der CI)
+```
+
+Der Workflow [`.github/workflows/deploy-web.yml`](.github/workflows/deploy-web.yml) baut bei
+jedem Push auf `main` die Web-Version (`flutter analyze`, `flutter test`, `flutter build web`)
+und veröffentlicht sie über GitHub Pages.
+
+> **Einmalige Einrichtung:** Unter **Settings → Pages → Source** muss **GitHub Actions**
+> ausgewählt sein. Der Workflow versucht dies über `actions/configure-pages` (`enablement: true`)
+> automatisch zu aktivieren; klappt das aufgrund der Repo-Berechtigungen nicht, genügt dieser
+> eine Klick in den Einstellungen.
 
 ## Was v0.1 kann
 
