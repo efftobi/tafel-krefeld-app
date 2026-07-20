@@ -65,7 +65,7 @@ ThemeData buildTafelTheme() {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       ),
     ),
-    navigationBarTheme: NavigationBarThemeData(
+    navigationBarTheme: const NavigationBarThemeData(
       backgroundColor: Colors.white,
       indicatorColor: TafelColors.orangeLight,
       labelTextStyle: WidgetStatePropertyAll(

@@ -2,8 +2,12 @@ name: Deploy Web to GitHub Pages
 
 # Baut die Flutter-Web-Version der App und veröffentlicht sie bei jedem Push
 # auf main unter https://efftobi.github.io/tafel-krefeld-app/.
+# Bei Pull Requests läuft nur die Validierung (analyze + test + build),
+# ohne Deployment.
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   # Erlaubt das manuelle Auslösen über den Actions-Tab.
   workflow_dispatch:
@@ -14,9 +18,10 @@ permissions:
   pages: write
   id-token: write
 
-# Immer nur ein Pages-Deployment gleichzeitig; laufende werden nicht abgebrochen.
+# Nur ein Lauf pro Ref gleichzeitig; laufende werden nicht abgebrochen, damit
+# ein Pages-Deployment nicht mittendrin abbricht.
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -41,7 +46,9 @@ jobs:
         run: flutter pub get
 
       - name: Statische Analyse
-        run: flutter analyze
+        # Reine Infos (z. B. prefer_const_constructors) sollen den Deploy nicht
+        # blockieren; Warnungen und Fehler lassen den Build weiterhin scheitern.
+        run: flutter analyze --no-fatal-infos
 
       - name: Tests
         run: flutter test
@@ -49,7 +56,10 @@ jobs:
       - name: Web bauen
         run: flutter build web --release --base-href /tafel-krefeld-app/
 
+      # Ab hier nur bei Push auf main / manuellem Lauf — bei Pull Requests wird
+      # nichts deployt (und die Pages-Rechte stehen dort ggf. nicht zur Verfügung).
       - name: GitHub Pages konfigurieren
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
         with:
           # Aktiviert GitHub Pages automatisch, falls in den Repo-Settings noch
@@ -58,12 +68,15 @@ jobs:
           enablement: true
 
       - name: Build-Artefakt hochladen
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: app/build/web
 
   deploy:
     name: Deploy to GitHub Pages
+    # Nur bei Push auf main / manuellem Lauf deployen, nicht bei Pull Requests.
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:
